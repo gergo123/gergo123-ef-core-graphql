@@ -1,0 +1,32 @@
+﻿Install Microsoft.EntityFrameworkCore.Tools on Web project to avoid having to switch start up proejct to the class library containing the db context.
+ Set default project value to the project which contains the db context.
+Connection string is in appsettings.json (+ environment name) or CoreContextFactory when running CLI commands.
+
+Package managger konzolban:
+0. To enable migrations, run this once on the proejct containing db Context
+Enable-Migrations
+
+- Have to run after changes has been made to any model class
+x is migration identifier
+Add-Migration x
+
+-
+Add-Migration x -Force
+
+- Update database
+Update-Database
+
+- Export migration to file
+Script-Migration
+https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/powershell#script-migration
+
+- List migrations done on db.
+Get-Migrations
+
+Rollback:
+- Down method of migrations
+Update-Database –TargetMigration: $InitialDatabase
+
+
+
+- https://msdn.microsoft.com/en-us/library/jj591583(v=vs.113).aspx
