@@ -1,0 +1,33 @@
+﻿Install Microsoft.EntityFrameworkCore.Tools on Web project to avoid having to switch start up proejct to the class library containing the db context.
+ Set default project value to the project which contains the db context.
+Context factory is if you only have the class library project with the db context. Then it gets used as a connection string provider for the EF CLI.
+Connection string is in appsettings.json (+ environment name)
+
+Package managger konzolban:
+0. Csak egyszer kell a db contextet tartalmazó projektben. (Ha van Migrations mappa már nem kell)
+Enable-Migrations
+
+- Osztályok módosítása után legenerálja a változáshoz szüksés sql-t
+Az x paraméter lehet pl verzió szám.
+Add-Migration x
+
+- Migráció újra generálása (ha pl. még nem volt source code commit de változás történt az előző Add-Migration parancs futtatás óta)
+Add-Migration x -Force
+
+- Adatbázis frissítése manuálisan:
+Update-Database
+
+- Migrációhoz tartozó sql script fájlba exportálás
+Update-Database -script -SourceMigration 0
+	-> SourceMigration paraméter: migration indexe(idő szerint?), nem pedig a neve!
+
+- Adatbázison lefuttatott migrációk listázása:
+Get-Migrations
+
+Rollback:
+- Lefut a Down metódus a -TargetMigration kapcsoló paraméterben megadott migráción:
+Update-Database –TargetMigration: $InitialDatabase
+
+
+Kapcsolatokról leírás:
+- https://msdn.microsoft.com/en-us/library/jj591583(v=vs.113).aspx
